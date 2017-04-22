@@ -1,3 +1,5 @@
+package step1;
+
 /**
  * Reads from an input buffer, increments and writes to an output buffer unless
  * it is number 0. In that case, it just writes increasing integers to the

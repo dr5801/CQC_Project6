@@ -1,3 +1,5 @@
+package step1;
+
 /**
  * a data store between two threads
  * 
