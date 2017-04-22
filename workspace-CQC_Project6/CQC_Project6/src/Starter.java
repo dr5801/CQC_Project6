@@ -1,4 +1,4 @@
-package step1;
+
 
 import java.lang.reflect.InvocationTargetException;
 
@@ -97,5 +97,4 @@ public class Starter
 		new Starter();
 
 	}
-
 }
