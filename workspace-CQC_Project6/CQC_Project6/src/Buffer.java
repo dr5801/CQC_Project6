@@ -19,9 +19,7 @@ public class Buffer
 	 */
 	public void write(int x)
 	{
-
 		this.x = x;
-
 	}
 
 	/**
@@ -29,9 +27,7 @@ public class Buffer
 	 */
 	public int read()
 	{
-
 		return x;
-
 	}
 
 }
