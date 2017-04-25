@@ -1,6 +1,3 @@
-
-
-
 /**
  * @author Merlin
  *
@@ -22,11 +19,11 @@ public class ConstantChecker
 	}
 
 	/**
-	 * 
+	 *
 	 */
 	public void check()
 	{
-		
+
 			int data = buffer.read();
 			if (data != value)
 			{
@@ -36,6 +33,6 @@ public class ConstantChecker
 				System.out.println("No error: data " + data);
 			}
 		}
-		
+
 	}
 

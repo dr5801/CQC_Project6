@@ -4,7 +4,7 @@
  * Reads from an input buffer, increments and writes to an output buffer unless
  * it is number 0. In that case, it just writes increasing integers to the
  * output buffer
- * 
+ *
  * @author Merlin
  *
  */
@@ -16,7 +16,7 @@ public class Incrementer extends Thread
 
 	/**
 	 * Create an incrementer
-	 * 
+	 *
 	 * @param myNum
 	 *            ignored unless it is zero
 	 * @param inBuffer
@@ -43,10 +43,10 @@ public class Incrementer extends Thread
 		for (int i = 0; i < Starter.NUMBER_OF_TRIALS; i++)
 		{
 			/* critical region : synchronizes on the instance of buffer that we are writing to */
-			synchronized (Buffer.class)
-			{
+//			synchronized (Buffer.class)
+//			{
 				outBuffer.write(inBuffer.read() + 1);
-			}
+//			}
 		}
 	}
 

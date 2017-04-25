@@ -5,7 +5,7 @@ import java.lang.reflect.InvocationTargetException;
 /**
  * @author Merlin
  *
- * 
+ *
  */
 public class Starter
 {
@@ -21,8 +21,8 @@ public class Starter
 	/**
 	 * spawn off all of the behaviors giving them appropriate input and output
 	 * buffers
-	 * 
-	 * 
+	 *
+	 *
 	 * @throws ClassNotFoundException
 	 *             shouldn't
 	 * @throws NoSuchMethodException

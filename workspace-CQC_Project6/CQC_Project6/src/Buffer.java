@@ -2,7 +2,7 @@
 
 /**
  * a data store between two threads
- * 
+ *
  * @author Merlin
  *
  */
@@ -13,7 +13,7 @@ public class Buffer
 
 	/**
 	 * write an int into this buffer
-	 * 
+	 *
 	 * @param x
 	 *            the int we should store
 	 */
