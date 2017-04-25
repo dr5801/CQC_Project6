@@ -8,6 +8,7 @@
  * @author Merlin
  *
  */
+
 public class Incrementer extends Thread
 {
 	private Integer myNum;
@@ -43,11 +44,10 @@ public class Incrementer extends Thread
 		for (int i = 0; i < Starter.NUMBER_OF_TRIALS; i++)
 		{
 			/* critical region : synchronizes on the instance of buffer that we are writing to */
-//			synchronized (Buffer.class)
-//			{
+			synchronized (Buffer.class)
+			{
 				outBuffer.write(inBuffer.read() + 1);
-//			}
+			}
 		}
 	}
-
 }

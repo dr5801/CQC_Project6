@@ -19,7 +19,10 @@ public class Buffer
 	 */
 	public void write(int x)
 	{
-		this.x = x;
+		synchronized (this)
+		{
+			this.x = x;
+		}
 	}
 
 	/**
@@ -27,7 +30,9 @@ public class Buffer
 	 */
 	public int read()
 	{
-		return x;
+		synchronized (this)
+		{
+			return x;
+		}
 	}
-
 }
