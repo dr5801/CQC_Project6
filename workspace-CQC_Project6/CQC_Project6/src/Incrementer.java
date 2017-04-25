@@ -44,10 +44,15 @@ public class Incrementer extends Thread
 		for (int i = 0; i < Starter.NUMBER_OF_TRIALS; i++)
 		{
 			/* critical region : synchronizes on the instance of buffer that we are writing to */
-			synchronized (Buffer.class)
-			{
-				outBuffer.write(inBuffer.read() + 1);
-			}
+			readWriteUpdate();
 		}
+	}
+
+	/**
+	 * Extracted method to do the reading, the writing and the updating
+	 */
+	private synchronized void readWriteUpdate()
+	{
+		outBuffer.write(inBuffer.read() + 1);
 	}
 }

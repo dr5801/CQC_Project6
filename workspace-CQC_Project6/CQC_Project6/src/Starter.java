@@ -15,7 +15,7 @@ public class Starter
 	 */
 	public static final int NUMBER_OF_TRIALS = 10000;
 	private String[] behaviors =
-	{ "Incrementer", "Incrementer", "Incrementer", "Incrementer" };
+	{ "Incrementer", "IncrementerCopy", "Incrementer", "IncrementerCopy" };
 	private Buffer buffer;
 
 	/**
