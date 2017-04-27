@@ -55,7 +55,7 @@ public class Modifier extends Thread
 	 */
 	private void readManipulateWrite()
 	{
-		synchronized (Buffer.class)
+		synchronized (inBuffer)
 		{
 			outBuffer.write(mathBehavior.execute(inBuffer.read()));
 		}
