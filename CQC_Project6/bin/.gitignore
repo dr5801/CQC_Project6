@@ -7,4 +7,5 @@
 /Modifier.class
 /MathBehavior.class
 /IncrementBehavior.class
-/SubtractBehavior.class
+/ModifierChecker.class
+/ModifierCopy.class

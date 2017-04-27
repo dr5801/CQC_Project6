@@ -14,5 +14,4 @@ public class IncrementBehavior implements MathBehavior
 	{
 		return value+1;
 	}
-
 }
