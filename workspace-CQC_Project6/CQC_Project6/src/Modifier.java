@@ -14,6 +14,7 @@ public class Modifier extends Thread
 	private Integer myNum;
 	private Buffer inBuffer;
 	private Buffer outBuffer;
+	private MathBehavior mathBehavior;
 
 	/**
 	 * Create an incrementer
@@ -25,12 +26,13 @@ public class Modifier extends Thread
 	 * @param outBuffer
 	 *            the buffer to write to
 	 */
-	public Modifier(Integer myNum, Buffer inBuffer, Buffer outBuffer)
+	public Modifier(Integer myNum, Buffer inBuffer, Buffer outBuffer, MathBehavior mathBehavior)
 	{
 		System.out.println("Initialized Incrementor with " + myNum);
 		this.myNum = myNum;
 		this.inBuffer = inBuffer;
 		this.outBuffer = outBuffer;
+		this.mathBehavior = mathBehavior;
 	}
 
 	/**
@@ -51,8 +53,11 @@ public class Modifier extends Thread
 	/**
 	 * Extracted method to do the reading, the writing and the updating
 	 */
-	private synchronized void readManipulateWrite()
+	private void readManipulateWrite()
 	{
-		outBuffer.write(inBuffer.read() + 1);
+		synchronized (Buffer.class)
+		{
+			outBuffer.write(mathBehavior.execute(inBuffer.read()));
+		}
 	}
 }
