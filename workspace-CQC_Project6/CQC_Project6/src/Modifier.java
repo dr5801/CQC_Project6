@@ -9,7 +9,7 @@
  *
  */
 
-public class Incrementer extends Thread
+public class Modifier extends Thread
 {
 	private Integer myNum;
 	private Buffer inBuffer;
@@ -25,7 +25,7 @@ public class Incrementer extends Thread
 	 * @param outBuffer
 	 *            the buffer to write to
 	 */
-	public Incrementer(Integer myNum, Buffer inBuffer, Buffer outBuffer)
+	public Modifier(Integer myNum, Buffer inBuffer, Buffer outBuffer)
 	{
 		System.out.println("Initialized Incrementor with " + myNum);
 		this.myNum = myNum;
