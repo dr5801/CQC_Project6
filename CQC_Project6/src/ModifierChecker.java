@@ -7,7 +7,7 @@
  * @author Merlin
  *
  */
-public class IncrementChecker extends Thread
+public class ModifierChecker extends Thread
 {
 	private Integer myNum;
 	private Buffer inBuffer;
@@ -22,7 +22,7 @@ public class IncrementChecker extends Thread
 	 * @param outBuffer
 	 *            not used
 	 */
-	public IncrementChecker(Integer myNum, Buffer inBuffer, Buffer outBuffer)
+	public ModifierChecker(Integer myNum, Buffer inBuffer, Buffer outBuffer)
 	{
 		System.out.println("Initialized Incrementor with " + myNum);
 		this.myNum = myNum;

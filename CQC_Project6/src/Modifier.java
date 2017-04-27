@@ -4,32 +4,36 @@
  * Reads from an input buffer, increments and writes to an output buffer unless
  * it is number 0. In that case, it just writes increasing integers to the
  * output buffer
- * 
+ *
  * @author Merlin
  *
  */
-public class IncrementerCopy extends Thread
+
+public class Modifier extends Thread
 {
 	private Integer myNum;
 	private Buffer inBuffer;
 	private Buffer outBuffer;
+	private MathBehavior mathBehavior;
 
 	/**
 	 * Create an incrementer
-	 * 
+	 *
 	 * @param myNum
 	 *            ignored unless it is zero
 	 * @param inBuffer
 	 *            the buffer to read from
 	 * @param outBuffer
 	 *            the buffer to write to
+	 * @param mathBehavior
 	 */
-	public IncrementerCopy(Integer myNum, Buffer inBuffer, Buffer outBuffer)
+	public Modifier(Integer myNum, Buffer inBuffer, Buffer outBuffer, MathBehavior mathBehavior)
 	{
 		System.out.println("Initialized Incrementor with " + myNum);
 		this.myNum = myNum;
 		this.inBuffer = inBuffer;
 		this.outBuffer = outBuffer;
+		this.mathBehavior = mathBehavior;
 	}
 
 	/**
@@ -42,8 +46,19 @@ public class IncrementerCopy extends Thread
 
 		for (int i = 0; i < Starter.NUMBER_OF_TRIALS; i++)
 		{
-			outBuffer.write(inBuffer.read() + 1);
+			/* critical region : synchronizes on the instance of buffer that we are writing to */
+			readManipulateWrite();
 		}
 	}
 
+	/**
+	 * Extracted method to do the reading, the writing and the updating
+	 */
+	private void readManipulateWrite()
+	{
+		synchronized (inBuffer)
+		{
+			outBuffer.write(mathBehavior.execute(inBuffer.read()));
+		}
+	}
 }
