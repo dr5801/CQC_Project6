@@ -9,13 +9,17 @@ import java.util.ArrayList;
 public class Buffer
 {
 
-	private static ArrayList<ValueHolder> listOfValueHolders;
+	private ArrayList<ValueHolder> listOfValueHolders;
 	
 	private int x;
 	
 	public Buffer(int size)
 	{
 		listOfValueHolders = new ArrayList<ValueHolder>(size);
+		for(ValueHolder valueHolder : listOfValueHolders)
+		{
+			valueHolder = new ValueHolder(0, 0);
+		}
 	}
 	
 
@@ -25,16 +29,16 @@ public class Buffer
 	 * @param x
 	 *            the int we should store
 	 */
-	public void write(int x)
+	public void write(int index, int result)
 	{
-		this.x = x;
+		this.listOfValueHolders.get(index).setCurrentValue(result);
 	}
 
 	/**
 	 * @return the next int in the buffer
 	 */
-	public int read()
+	public int read(int index)
 	{
-		return x;
+		return this.listOfValueHolders.get(index).getCurrentValue();
 	}
 }

@@ -1,6 +1,6 @@
 import java.util.Random;
 
-public class RandomNumberGenerator 
+public class RandomNumberGenerator implements MathBehavior
 {
 	private static int randomNumber;
 	
@@ -19,5 +19,13 @@ public class RandomNumberGenerator
 	public int getRandomNumber()
 	{
 		return randomNumber;
+	}
+
+	@Override
+	public int execute(int currentValue) 
+	{
+		Random random = new Random();
+		currentValue = random.nextInt(10000) + 1;
+		return currentValue;
 	}
 }

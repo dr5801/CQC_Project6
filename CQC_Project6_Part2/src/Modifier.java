@@ -44,21 +44,22 @@ public class Modifier extends Thread
 	{
 		System.out.println("Running Incrementor with " + myNum);
 
-		for (int i = 0; i < Starter.NUMBER_OF_TRIALS; i++)
+		for (int i = 0; i < Starter.RANDOM_NUMBERS; i++)
 		{
+			
 			/* critical region : synchronizes on the instance of buffer that we are writing to */
-			readManipulateWrite();
+			readManipulateWrite(i);
 		}
 	}
 
 	/**
 	 * Extracted method to do the reading, the writing and the updating
 	 */
-	private void readManipulateWrite()
+	private void readManipulateWrite(int i)
 	{
 		synchronized (inBuffer)
 		{
-			outBuffer.write(mathBehavior.execute(inBuffer.read()));
+			outBuffer.write(i, mathBehavior.execute(inBuffer.read(i)));
 		}
 	}
 }

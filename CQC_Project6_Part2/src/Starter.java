@@ -13,7 +13,7 @@ public class Starter
 	/**
 	 * The number of iterations each behavior should do
 	 */
-	public static final int NUMBER_OF_TRIALS = 10000;
+	public static final int RANDOM_NUMBERS = 10000;
 	private String[] behaviors =
 		{ "RandomNumberGenerator", "NumberDoubler", "AdditionBehavior", "SubtractionBehavior", "DivisionBehavior", "SubtractionBehavior" };
 	private Buffer buffer;
@@ -46,8 +46,7 @@ public class Starter
 			InterruptedException
 	{
 		Thread threads[] = new Thread[behaviors.length];
-		buffer = new Buffer();
-		buffer.write(1);
+		buffer = new Buffer(RANDOM_NUMBERS);
 		for (int i = 0; i < behaviors.length; i++)
 		{
 
@@ -61,7 +60,7 @@ public class Starter
 		{
 			threads[i].join();
 		}
-		ConstantChecker checker = new ConstantChecker(buffer, NUMBER_OF_TRIALS
+		ConstantChecker checker = new ConstantChecker(buffer, RANDOM_NUMBERS
 				* (behaviors.length ) + 1);
 		checker.check();
 
