@@ -15,7 +15,7 @@ public class Starter
 	 */
 	public static final int NUMBER_OF_TRIALS = 10000;
 	private String[] behaviors =
-	{ "IncrementBehavior", "IncrementBehavior", "IncrementBehavior", "IncrementBehavior" };
+		{ "RandomNumberGenerator", "NumberDoubler", "AdditionBehavior", "SubtractionBehavior", "DivisionBehavior", "SubtractionBehavior" };
 	private Buffer buffer;
 
 	/**
