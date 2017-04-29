@@ -37,10 +37,10 @@ public class ModifierChecker extends Thread
 	{
 
 		System.out.println("Running Incrementor with " + myNum);
-		int last = inBuffer.read();
-		for (int i = 1; i < Starter.NUMBER_OF_TRIALS; i++)
+		int last = inBuffer.read(0);
+		for (int i = 1; i < Starter.RANDOM_NUMBERS; i++)
 		{
-			int next = inBuffer.read();
+			int next = inBuffer.read(i);
 			if (next != last + 1)
 			{
 				System.out.println(next + " followed " + last);
