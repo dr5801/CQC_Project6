@@ -1,4 +1,4 @@
-
+import java.util.ArrayList;
 
 /**
  * a data store between two threads
@@ -9,7 +9,15 @@
 public class Buffer
 {
 
+	private static ArrayList<ValueHolder> listOfValueHolders;
+	
 	private int x;
+	
+	public Buffer(int size)
+	{
+		listOfValueHolders = new ArrayList<ValueHolder>(size);
+	}
+	
 
 	/**
 	 * write an int into this buffer
