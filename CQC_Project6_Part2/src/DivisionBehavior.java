@@ -1,12 +1,10 @@
 
-public class DivisionBehavior 
+public class DivisionBehavior implements MathBehavior
 {
-	/**
-	 * @param number
-	 * @return number / 2
-	 */
-	public int getResult(int number)
+	@Override
+	public ValueHolder execute(ValueHolder valueHolder) 
 	{
-		return number / 2;
+		valueHolder.setCurrentValue(valueHolder.getCurrentValue()/2);
+		return valueHolder;
 	}
 }

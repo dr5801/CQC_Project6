@@ -1,22 +1,10 @@
 
-public class SubtractionBehavior 
+public class SubtractionBehavior implements MathBehavior
 {
-	/**
-	 * @param number
-	 * @return
-	 */
-	public int getResult(int number)
+	@Override
+	public ValueHolder execute(ValueHolder valueHolder) 
 	{
-		return number - 3;
-	}
-	
-	/**
-	 * @param originalNumber
-	 * @param previousResult
-	 * @return originalNumber - previousResult
-	 */
-	public int getResult(int originalNumber, int previousResult)
-	{
-		return originalNumber - previousResult;
+		valueHolder.setCurrentValue(valueHolder.getCurrentValue() - 3);
+		return valueHolder;
 	}
 }

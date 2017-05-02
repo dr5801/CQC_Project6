@@ -5,6 +5,5 @@
  */
 public interface MathBehavior
 {
-	public int execute(int currentValue);
-
+	ValueHolder execute(ValueHolder valueHolder);
 }

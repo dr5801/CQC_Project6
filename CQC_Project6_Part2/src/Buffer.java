@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.concurrent.Semaphore;
 
 /**
  * a data store between two threads
@@ -9,15 +10,13 @@ import java.util.ArrayList;
 public class Buffer
 {
 
-	private ArrayList<ValueHolder> listOfValueHolders;
+	Semaphore semaphore = new Semaphore(1);
+	
+	private ValueHolder[] valueHolders = {};
 
 	public Buffer(int size)
 	{
-		listOfValueHolders = new ArrayList<ValueHolder>(size);
-		for(int i = 0; i < size; i++)
-		{
-			listOfValueHolders.add(new ValueHolder(-1, -1));
-		}
+		this.valueHolders = new ValueHolder[size];
 	}
 
 	/**
@@ -26,21 +25,19 @@ public class Buffer
 	 * @param x
 	 *            the int we should store
 	 */
-	public void write(int index, int result)
+	public void write(int index, ValueHolder valueHolder)
 	{
-		if(listOfValueHolders.get(index).getOriginalValue() < 0)
-		{
-			this.listOfValueHolders.get(index).setOriginalValue(result);
-		}
-
-		this.listOfValueHolders.get(index).setCurrentValue(result);
+		valueHolders[index] = valueHolder;
+		semaphore.release();
 	}
 
 	/**
 	 * @return the next int in the buffer
+	 * @throws InterruptedException 
 	 */
-	public int read(int index)
+	public ValueHolder read(int index) throws InterruptedException
 	{
-		return this.listOfValueHolders.get(index).getCurrentValue();
+		semaphore.acquire();
+		return valueHolders[index];
 	}
 }

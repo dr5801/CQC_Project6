@@ -37,15 +37,25 @@ public class ModifierChecker extends Thread
 	{
 
 		System.out.println("Running Incrementor with " + myNum);
-		int last = inBuffer.read(0);
-		for (int i = 1; i < Starter.RANDOM_NUMBERS; i++)
-		{
-			int next = inBuffer.read(i);
-			if (next != last + 1)
+		ValueHolder valueHolderLast;
+		try {
+			
+			valueHolderLast = inBuffer.read(0);
+			int last = valueHolderLast.getCurrentValue();
+			for (int i = 1; i < Starter.RANDOM_NUMBERS; i++)
 			{
-				System.out.println(next + " followed " + last);
+				ValueHolder valueHolderNext = inBuffer.read(i);
+				int next = valueHolderNext.getCurrentValue();
+				if (next != last + 1)
+				{
+					System.out.println(next + " followed " + last);
+				}
+				last = next;
 			}
-			last = next;
+			
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 

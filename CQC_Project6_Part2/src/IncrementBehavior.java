@@ -10,8 +10,9 @@ public class IncrementBehavior implements MathBehavior
 	 * increments the value passed in
 	 */
 	@Override
-	public int execute(int value)
+	public ValueHolder execute(ValueHolder valueHolder)
 	{
-		return value+1;
+		valueHolder.setCurrentValue(valueHolder.getCurrentValue() + 1);
+		return valueHolder;
 	}
 }

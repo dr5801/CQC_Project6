@@ -1,12 +1,10 @@
 
-public class AdditionBehavior 
+public class AdditionBehavior implements MathBehavior
 {
-	/**
-	 * @param number
-	 * @return number passed in + 9
-	 */
-	public int getResult(int number)
+	@Override
+	public ValueHolder execute(ValueHolder valueHolder) 
 	{
-		return number + 9;
+		valueHolder.setCurrentValue(valueHolder.getCurrentValue() + 9);
+		return valueHolder;
 	}
 }

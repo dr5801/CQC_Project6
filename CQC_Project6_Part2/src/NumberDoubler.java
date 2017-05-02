@@ -1,12 +1,10 @@
 
-public class NumberDoubler 
+public class NumberDoubler implements MathBehavior
 {
-	
-	/**
-	 * @return doubledNumber
-	 */
-	public int getResult(int number)
+	@Override
+	public ValueHolder execute(ValueHolder valueHolder) 
 	{
-		return number * 2;
+		valueHolder.setCurrentValue(valueHolder.getCurrentValue() * 2);
+		return valueHolder;
 	}
 }

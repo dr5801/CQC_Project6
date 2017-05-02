@@ -42,14 +42,19 @@ public class Modifier extends Thread
 	@Override
 	public void run()
 	{
+		ValueHolder valueHolder = null;
 		System.out.println("Running Incrementor with " + myNum);
-
-		for (int i = 0; i < Starter.RANDOM_NUMBERS; i++)
+		
+		synchronized(this)
 		{
-			
-			/* critical region : synchronizes on the instance of buffer that we are writing to */
-			readManipulateWrite(i);
+			try {
+				outBuffer.write(this.myNum, this.mathBehavior.execute(inBuffer.read(this.myNum)));
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
+		
 	}
 
 	/**
@@ -59,7 +64,7 @@ public class Modifier extends Thread
 	{
 		synchronized (inBuffer)
 		{
-			outBuffer.write(i, mathBehavior.execute(inBuffer.read(i)));
+//			outBuffer.write(i, mathBehavior.execute(inBuffer.read(i)));
 		}
 	}
 }

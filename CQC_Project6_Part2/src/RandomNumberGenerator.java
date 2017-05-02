@@ -22,10 +22,11 @@ public class RandomNumberGenerator implements MathBehavior
 	}
 
 	@Override
-	public int execute(int currentValue)
+	public ValueHolder execute(ValueHolder valueHolder)
 	{
 		Random random = new Random();
-		currentValue = random.nextInt(10000) + 1;
-		return currentValue;
+		int currentValue = random.nextInt(10000) + 1;
+		valueHolder = new ValueHolder(currentValue, currentValue);
+		return valueHolder;
 	}
 }
