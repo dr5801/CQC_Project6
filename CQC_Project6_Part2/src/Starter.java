@@ -60,9 +60,11 @@ public class Starter
 		{
 			threads[i].join();
 		}
-		ConstantChecker checker = new ConstantChecker(buffer, RANDOM_NUMBERS
-				* (behaviors.length ) + 1);
-		checker.check();
+
+
+//		ConstantChecker checker = new ConstantChecker(buffer, RANDOM_NUMBERS
+//				* (behaviors.length ) + 1);
+//		checker.check();
 
 	}
 

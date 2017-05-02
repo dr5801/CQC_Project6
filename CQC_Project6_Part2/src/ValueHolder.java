@@ -1,12 +1,12 @@
 
-public class ValueHolder 
+public class ValueHolder
 {
 	private int originalValue;
 	private int currentValue;
-	
+
 	/**
 	 * saves the original and current value
-	 * 
+	 *
 	 * @param originalValue
 	 * @param currentValue
 	 */
@@ -15,7 +15,7 @@ public class ValueHolder
 		this.originalValue = originalValue;
 		this.currentValue = currentValue;
 	}
-	
+
 	/**
 	 * @return original value
 	 */
@@ -23,7 +23,7 @@ public class ValueHolder
 	{
 		return this.originalValue;
 	}
-	
+
 	/**
 	 * @return current value
 	 */
@@ -31,12 +31,20 @@ public class ValueHolder
 	{
 		return this.currentValue;
 	}
-	
+
 	/**
 	 * sets the current value
 	 */
 	public void setCurrentValue(int result)
 	{
 		this.currentValue = result;
+	}
+
+	/**
+	 * sets the original value
+	 */
+	public void setOriginalValue(int value)
+	{
+		this.originalValue = value;
 	}
 }

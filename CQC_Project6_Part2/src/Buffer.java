@@ -10,18 +10,15 @@ public class Buffer
 {
 
 	private ArrayList<ValueHolder> listOfValueHolders;
-	
-	private int x;
-	
+
 	public Buffer(int size)
 	{
 		listOfValueHolders = new ArrayList<ValueHolder>(size);
-		for(ValueHolder valueHolder : listOfValueHolders)
+		for(int i = 0; i < size; i++)
 		{
-			valueHolder = new ValueHolder(0, 0);
+			listOfValueHolders.add(new ValueHolder(-1, -1));
 		}
 	}
-	
 
 	/**
 	 * write an int into this buffer
@@ -31,6 +28,11 @@ public class Buffer
 	 */
 	public void write(int index, int result)
 	{
+		if(listOfValueHolders.get(index).getOriginalValue() < 0)
+		{
+			this.listOfValueHolders.get(index).setOriginalValue(result);
+		}
+
 		this.listOfValueHolders.get(index).setCurrentValue(result);
 	}
 
