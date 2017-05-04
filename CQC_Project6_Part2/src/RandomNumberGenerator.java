@@ -21,6 +21,9 @@ public class RandomNumberGenerator extends Thread implements MathBehavior
 		this.sendingSemaphore = sendingSemaphore;
 	}
 
+	/**
+	 * generates the random data
+	 */
 	@Override
 	public ValueHolder execute(ValueHolder valueHolder)
 	{
@@ -31,6 +34,9 @@ public class RandomNumberGenerator extends Thread implements MathBehavior
 		return valueHolder;
 	}
 	
+	/**
+	 * runs the thread to write to buffer 
+	 */
 	@Override
 	public void run()
 	{
