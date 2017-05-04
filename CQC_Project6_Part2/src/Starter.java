@@ -13,7 +13,7 @@ public class Starter
 	 */
 	public static final int RANDOM_NUMBERS = 10000;
 	private String[] behaviors =
-		{"NumberDoubler", "AdditionBehavior", "SubtractionBehavior", "DivisionBehavior", "SubtractionBehavior"};
+		{"NumberDoubler", "AdditionBehavior", "SubtractionBehavior", "DivisionBehavior", "FinalResultBehavior"};
 	private final int TOTAL_BUFFERS = behaviors.length + 1;
 
 	/**
