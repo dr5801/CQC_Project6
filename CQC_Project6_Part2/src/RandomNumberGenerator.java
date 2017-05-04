@@ -43,19 +43,4 @@ public class RandomNumberGenerator extends Thread implements MathBehavior
 		
 		this.sendingSemaphore.take();
 	}
-
-	/**
-	 * 
-	 * @param randomNumbers
-	 */
-	public void writeToBuffer(int randomNumbers) 
-	{
-		for(int i = 0; i < randomNumbers; i++)
-		{
-			ValueHolder valueHolder = new ValueHolder(0,0);
-			valueHolder = this.execute(valueHolder);
-			this.outBuffer.write(i, valueHolder);
-		}
-		
-	}
 }
