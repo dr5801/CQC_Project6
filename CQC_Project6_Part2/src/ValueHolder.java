@@ -3,10 +3,10 @@ public class ValueHolder
 {
 	private int originalValue;
 	private int currentValue;
-	
+
 	/**
 	 * constructor for value holder
-	 * 
+	 *
 	 * @param originalValue
 	 * @param currentValue
 	 */

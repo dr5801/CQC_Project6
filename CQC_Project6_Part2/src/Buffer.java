@@ -9,9 +9,6 @@ import java.util.concurrent.Semaphore;
  */
 public class Buffer
 {
-
-	Semaphore semaphore = new Semaphore(1);
-	
 	private ValueHolder[] valueHolders = {};
 
 	public Buffer(int size)
@@ -28,16 +25,14 @@ public class Buffer
 	public void write(int index, ValueHolder valueHolder)
 	{
 		valueHolders[index] = valueHolder;
-		semaphore.release();
 	}
 
 	/**
 	 * @return the next int in the buffer
-	 * @throws InterruptedException 
+	 * @throws InterruptedException
 	 */
 	public ValueHolder read(int index) throws InterruptedException
 	{
-		semaphore.acquire();
 		return valueHolders[index];
 	}
 }

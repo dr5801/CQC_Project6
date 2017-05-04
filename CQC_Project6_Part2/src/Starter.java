@@ -1,5 +1,3 @@
-
-
 import java.lang.reflect.InvocationTargetException;
 
 /**
@@ -16,7 +14,9 @@ public class Starter
 	public static final int RANDOM_NUMBERS = 10000;
 	private String[] behaviors =
 		{ "RandomNumberGenerator", "NumberDoubler", "AdditionBehavior", "SubtractionBehavior", "DivisionBehavior", "SubtractionBehavior" };
-	private Buffer buffer;
+	private Buffer bufferIn;
+	private Buffer bufferOut;
+	private final int TOTAL_BUFFERS = behaviors.length + 1;
 
 	/**
 	 * spawn off all of the behaviors giving them appropriate input and output
@@ -46,13 +46,20 @@ public class Starter
 			InterruptedException
 	{
 		Thread threads[] = new Thread[behaviors.length];
-		buffer = new Buffer(RANDOM_NUMBERS);
+		Semaphore[] semaphores = new Semaphore[TOTAL_BUFFERS];
+		Buffer[] buffers = new Buffer[TOTAL_BUFFERS];
+
+		for(int i = 0; i < TOTAL_BUFFERS; i++)
+		{
+			semaphores[i] = new Semaphore();
+			buffers[i] = new Buffer(RANDOM_NUMBERS);
+		}
+
 		for (int i = 0; i < behaviors.length; i++)
 		{
 
 			Class<?> behavior = Class.forName(behaviors[i]);
-
-			threads[i] = new Modifier(i, buffer, buffer, (MathBehavior) behavior.getConstructor().newInstance());
+			threads[i] = new Modifier(i, buffers[i], buffers[i+1], (MathBehavior) behavior.getConstructor().newInstance(), semaphores[i], semaphores[i+1]);
 			threads[i].start();
 
 		}
@@ -60,6 +67,8 @@ public class Starter
 		{
 			threads[i].join();
 		}
+
+
 
 
 //		ConstantChecker checker = new ConstantChecker(buffer, RANDOM_NUMBERS

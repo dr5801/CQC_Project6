@@ -1,5 +1,3 @@
-
-
 /**
  * Reads from an input buffer, increments and writes to an output buffer unless
  * it is number 0. In that case, it just writes increasing integers to the
@@ -15,6 +13,8 @@ public class Modifier extends Thread
 	private Buffer inBuffer;
 	private Buffer outBuffer;
 	private MathBehavior mathBehavior;
+	private Semaphore sendingSemaphore;
+	private Semaphore receivingSemaphore;
 
 	/**
 	 * Create an incrementer
@@ -27,13 +27,15 @@ public class Modifier extends Thread
 	 *            the buffer to write to
 	 * @param mathBehavior
 	 */
-	public Modifier(Integer myNum, Buffer inBuffer, Buffer outBuffer, MathBehavior mathBehavior)
+	public Modifier(Integer myNum, Buffer inBuffer, Buffer outBuffer, MathBehavior mathBehavior, Semaphore sendingSemaphore, Semaphore receivingSemaphore)
 	{
 		System.out.println("Initialized Incrementor with " + myNum);
 		this.myNum = myNum;
 		this.inBuffer = inBuffer;
 		this.outBuffer = outBuffer;
 		this.mathBehavior = mathBehavior;
+		this.sendingSemaphore = sendingSemaphore;
+		this.receivingSemaphore = receivingSemaphore;
 	}
 
 	/**
@@ -42,19 +44,27 @@ public class Modifier extends Thread
 	@Override
 	public void run()
 	{
-		ValueHolder valueHolder = null;
-		System.out.println("Running Incrementor with " + myNum);
-		
-		synchronized(this)
+		for(int i = 0; i < Starter.RANDOM_NUMBERS; i++)
 		{
 			try {
-				outBuffer.write(this.myNum, this.mathBehavior.execute(inBuffer.read(this.myNum)));
+				this.receivingSemaphore.release();
+			} catch (InterruptedException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+
+			ValueHolder valueHolder = null;
+			try {
+				valueHolder = inBuffer.read(i);
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+
+			outBuffer.write(i, this.mathBehavior.execute(valueHolder));
+			this.sendingSemaphore.take();
 		}
-		
+
 	}
 
 	/**
