@@ -53,8 +53,8 @@ public class Starter
 			buffers[i] = new Buffer(RANDOM_NUMBERS);
 		}
 
-		RandomNumberGenerator rNG = new RandomNumberGenerator(buffers[0], semaphores[0], semaphores[1]);
-		rNG.writeToBuffer(RANDOM_NUMBERS);
+		RandomNumberGenerator rNG = new RandomNumberGenerator(buffers[0], semaphores[0]);
+		rNG.start();
 
 		for (int i = 0; i < behaviors.length; i++)
 		{
@@ -73,6 +73,8 @@ public class Starter
 			semaphores[i].take();
 			threads[i].start();
 		}
+		
+		rNG.join();
 		for (int i = 0; i < threads.length; i++)
 		{
 			threads[i].join();
