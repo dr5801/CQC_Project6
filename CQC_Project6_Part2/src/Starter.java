@@ -59,15 +59,17 @@ public class Starter
 		for (int i = 0; i < behaviors.length; i++)
 		{
 			Class<?> behavior = Class.forName(behaviors[i]);
+			
 
-			if(i == behaviors.length-1)
-			{
-				threads[i] = new Modifier(i, buffers[i], buffers[i+1], (MathBehavior) behavior.getConstructor().newInstance(), semaphores[i], semaphores[0]);
-			}
-			else
+			if(i != behaviors.length-1)
 			{
 				threads[i] = new Modifier(i, buffers[i], buffers[i+1], (MathBehavior) behavior.getConstructor().newInstance(), semaphores[i], semaphores[i+1]);
 			}
+			else
+			{
+				threads[i] = new Modifier(i, buffers[i], buffers[i+1], (MathBehavior) behavior.getConstructor().newInstance(), semaphores[i], semaphores[0]);
+			}
+			
 			semaphores[i].take();
 			threads[i].start();
 		}

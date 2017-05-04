@@ -4,8 +4,6 @@ public class RandomNumberGenerator extends Thread implements MathBehavior
 {
 
 	private Buffer outBuffer;
-	private Semaphore sendingSemaphore;
-	private Semaphore receivingSemaphore;
 
 	/**
 	 * constructor when called generates a random number between 0 and 1000
@@ -19,8 +17,6 @@ public class RandomNumberGenerator extends Thread implements MathBehavior
 	{
 		System.out.println("Initialized with RandomNumberGenerator ");
 		this.outBuffer = outBuffer;
-		this.sendingSemaphore = sendingSemaphore;
-		this.receivingSemaphore = receivingSemaphore;
 	}
 
 	@Override
@@ -32,25 +28,6 @@ public class RandomNumberGenerator extends Thread implements MathBehavior
 		valueHolder.setCurrentValue(currentValue);
 		return valueHolder;
 	}
-
-//	@Override
-//	public void run()
-//	{
-//		for(int i = 0; i < Starter.RANDOM_NUMBERS; i++)
-//		{
-//			try {
-//				this.sendingSemaphore.release();
-//			} catch (InterruptedException e) {
-//				// TODO Auto-generated catch block
-//				e.printStackTrace();
-//			}
-//
-//			ValueHolder valueHolder = new ValueHolder(0, 0);
-//			this.outBuffer.write(i, this.execute(valueHolder));
-//
-//			this.receivingSemaphore.take();
-//		}
-//	}
 
 	/**
 	 * 
