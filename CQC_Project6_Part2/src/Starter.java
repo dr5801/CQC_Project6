@@ -53,11 +53,10 @@ public class Starter
 			buffers[i] = new Buffer(RANDOM_NUMBERS);
 		}
 
-		semaphores[0].take();
 		RandomNumberGenerator rNG = new RandomNumberGenerator(buffers[0], semaphores[0], semaphores[1]);
-		rNG.start();
+		rNG.writeToBuffer(RANDOM_NUMBERS);
 
-		for (int i = 1; i < behaviors.length; i++)
+		for (int i = 0; i < behaviors.length; i++)
 		{
 			Class<?> behavior = Class.forName(behaviors[i]);
 
@@ -69,10 +68,9 @@ public class Starter
 			{
 				threads[i] = new Modifier(i, buffers[i], buffers[i+1], (MathBehavior) behavior.getConstructor().newInstance(), semaphores[i], semaphores[i+1]);
 			}
+			semaphores[i].take();
 			threads[i].start();
 		}
-
-		rNG.join();
 		for (int i = 0; i < threads.length; i++)
 		{
 			threads[i].join();
