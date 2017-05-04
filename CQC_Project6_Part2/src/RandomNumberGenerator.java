@@ -3,10 +3,9 @@ import java.util.Random;
 public class RandomNumberGenerator extends Thread implements MathBehavior
 {
 
-	private int myNum;
 	private Buffer outBuffer;
-	private Semaphore receivingSemaphore;
 	private Semaphore sendingSemaphore;
+	private Semaphore receivingSemaphore;
 
 	/**
 	 * constructor when called generates a random number between 0 and 1000
@@ -16,12 +15,12 @@ public class RandomNumberGenerator extends Thread implements MathBehavior
 	 * @param buffers
 	 * @param i
 	 */
-	public RandomNumberGenerator(Buffer outBuffer, Semaphore receivingSemaphore, Semaphore sendingSemaphore)
+	public RandomNumberGenerator(Buffer outBuffer, Semaphore sendingSemaphore, Semaphore receivingSemaphore)
 	{
 		System.out.println("Initialized with RandomNumberGenerator ");
 		this.outBuffer = outBuffer;
-		this.receivingSemaphore = receivingSemaphore;
 		this.sendingSemaphore = sendingSemaphore;
+		this.receivingSemaphore = receivingSemaphore;
 	}
 
 	@Override
@@ -38,17 +37,17 @@ public class RandomNumberGenerator extends Thread implements MathBehavior
 	{
 		for(int i = 0; i < Starter.RANDOM_NUMBERS; i++)
 		{
-			this.sendingSemaphore.take();
-
-			ValueHolder valueHolder = new ValueHolder(0, 0);
-			this.outBuffer.write(i, this.execute(valueHolder));
-
 			try {
-				this.receivingSemaphore.release();
+				this.sendingSemaphore.release();
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+
+			ValueHolder valueHolder = new ValueHolder(0, 0);
+			this.outBuffer.write(i, this.execute(valueHolder));
+
+			this.receivingSemaphore.take();
 		}
 	}
 }
