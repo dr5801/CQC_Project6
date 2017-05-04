@@ -13,9 +13,7 @@ public class Starter
 	 */
 	public static final int RANDOM_NUMBERS = 10000;
 	private String[] behaviors =
-		{ "RandomNumberGenerator", "NumberDoubler", "AdditionBehavior", "SubtractionBehavior", "DivisionBehavior", "SubtractionBehavior" };
-	private Buffer bufferIn;
-	private Buffer bufferOut;
+		{"NumberDoubler", "AdditionBehavior", "SubtractionBehavior", "DivisionBehavior", "SubtractionBehavior"};
 	private final int TOTAL_BUFFERS = behaviors.length + 1;
 
 	/**
@@ -55,21 +53,21 @@ public class Starter
 			buffers[i] = new Buffer(RANDOM_NUMBERS);
 		}
 
+		RandomNumberGenerator rNG = new RandomNumberGenerator(buffers[0], semaphores[0], semaphores[1]);
+		rNG.start();
+
 		for (int i = 0; i < behaviors.length; i++)
 		{
-
 			Class<?> behavior = Class.forName(behaviors[i]);
 			threads[i] = new Modifier(i, buffers[i], buffers[i+1], (MathBehavior) behavior.getConstructor().newInstance(), semaphores[i], semaphores[i+1]);
 			threads[i].start();
-
 		}
+
+		rNG.join();
 		for (int i = 0; i < threads.length; i++)
 		{
 			threads[i].join();
 		}
-
-
-
 
 //		ConstantChecker checker = new ConstantChecker(buffer, RANDOM_NUMBERS
 //				* (behaviors.length ) + 1);

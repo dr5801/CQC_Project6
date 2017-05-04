@@ -1,6 +1,3 @@
-import java.util.ArrayList;
-import java.util.concurrent.Semaphore;
-
 /**
  * a data store between two threads
  *
@@ -31,7 +28,7 @@ public class Buffer
 	 * @return the next int in the buffer
 	 * @throws InterruptedException
 	 */
-	public ValueHolder read(int index) throws InterruptedException
+	public ValueHolder read(int index)
 	{
 		return valueHolders[index];
 	}

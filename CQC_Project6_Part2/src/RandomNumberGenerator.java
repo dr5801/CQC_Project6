@@ -1,24 +1,27 @@
 import java.util.Random;
 
-public class RandomNumberGenerator implements MathBehavior
+public class RandomNumberGenerator extends Thread implements MathBehavior
 {
-	private static int randomNumber;
+
+	private int myNum;
+	private Buffer outBuffer;
+	private Semaphore receivingSemaphore;
+	private Semaphore sendingSemaphore;
 
 	/**
 	 * constructor when called generates a random number between 0 and 1000
+	 * @param semaphores2
+	 * @param semaphores
+	 * @param mathBehavior
+	 * @param buffers
+	 * @param i
 	 */
-	public RandomNumberGenerator()
+	public RandomNumberGenerator(Buffer outBuffer, Semaphore receivingSemaphore, Semaphore sendingSemaphore)
 	{
-		Random random = new Random();
-		randomNumber = random.nextInt(1000) + 1;
-	}
-
-	/**
-	 * @return the random number
-	 */
-	public int getRandomNumber()
-	{
-		return randomNumber;
+		System.out.println("Initialized with RandomNumberGenerator ");
+		this.outBuffer = outBuffer;
+		this.receivingSemaphore = receivingSemaphore;
+		this.sendingSemaphore = sendingSemaphore;
 	}
 
 	@Override
@@ -28,5 +31,24 @@ public class RandomNumberGenerator implements MathBehavior
 		int currentValue = random.nextInt(10000) + 1;
 		valueHolder = new ValueHolder(currentValue, currentValue);
 		return valueHolder;
+	}
+
+	@Override
+	public void run()
+	{
+		for(int i = 0; i < Starter.RANDOM_NUMBERS; i++)
+		{
+			this.sendingSemaphore.take();
+
+			ValueHolder valueHolder = new ValueHolder(0, 0);
+			this.outBuffer.write(i, this.execute(valueHolder));
+
+			try {
+				this.receivingSemaphore.release();
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 	}
 }

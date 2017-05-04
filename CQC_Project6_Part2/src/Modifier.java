@@ -13,8 +13,8 @@ public class Modifier extends Thread
 	private Buffer inBuffer;
 	private Buffer outBuffer;
 	private MathBehavior mathBehavior;
-	private Semaphore sendingSemaphore;
 	private Semaphore receivingSemaphore;
+	private Semaphore sendingSemaphore;
 
 	/**
 	 * Create an incrementer
@@ -27,15 +27,15 @@ public class Modifier extends Thread
 	 *            the buffer to write to
 	 * @param mathBehavior
 	 */
-	public Modifier(Integer myNum, Buffer inBuffer, Buffer outBuffer, MathBehavior mathBehavior, Semaphore sendingSemaphore, Semaphore receivingSemaphore)
+	public Modifier(Integer myNum, Buffer inBuffer, Buffer outBuffer, MathBehavior mathBehavior, Semaphore receivingSemaphore, Semaphore sendingSemaphore)
 	{
 		System.out.println("Initialized Incrementor with " + myNum);
 		this.myNum = myNum;
 		this.inBuffer = inBuffer;
 		this.outBuffer = outBuffer;
 		this.mathBehavior = mathBehavior;
-		this.sendingSemaphore = sendingSemaphore;
 		this.receivingSemaphore = receivingSemaphore;
+		this.sendingSemaphore = sendingSemaphore;
 	}
 
 	/**
@@ -53,28 +53,11 @@ public class Modifier extends Thread
 				e1.printStackTrace();
 			}
 
-			ValueHolder valueHolder = null;
-			try {
-				valueHolder = inBuffer.read(i);
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			ValueHolder valueHolder = inBuffer.read(i);
 
 			outBuffer.write(i, this.mathBehavior.execute(valueHolder));
 			this.sendingSemaphore.take();
 		}
 
-	}
-
-	/**
-	 * Extracted method to do the reading, the writing and the updating
-	 */
-	private void readManipulateWrite(int i)
-	{
-		synchronized (inBuffer)
-		{
-//			outBuffer.write(i, mathBehavior.execute(inBuffer.read(i)));
-		}
 	}
 }
