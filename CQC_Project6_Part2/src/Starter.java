@@ -88,7 +88,7 @@ public class Starter
 	 */
 	private void checkFinalResults(Buffer finalResultsBuffer) 
 	{
-		System.out.println("Checking final results ...");
+		System.out.println("\nChecking all 10,000 results ...");
 		ModifierChecker checker = new ModifierChecker();
 		
 		if(checker.checkFinalResults(finalResultsBuffer))
