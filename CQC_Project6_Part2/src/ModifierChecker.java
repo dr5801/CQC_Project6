@@ -2,61 +2,31 @@
 
 
 /**
- * Checks to make sure that the items in its input buffer are incrementing
- * 
- * @author Merlin
- *
+ * Checks that the final results are correct
  */
-public class ModifierChecker extends Thread
+public class ModifierChecker
 {
-	private Integer myNum;
-	private Buffer inBuffer;
-
 	/**
-	 * Create a checker
-	 * 
-	 * @param myNum
-	 *            not used
-	 * @param inBuffer
-	 *            the buffer we should check
-	 * @param outBuffer
-	 *            not used
+	 * checks all the final results
+	 * @param buffer
+	 * @return true if all the final results are correct; false otherwise
 	 */
-	public ModifierChecker(Integer myNum, Buffer inBuffer, Buffer outBuffer)
+	public boolean checkFinalResults(Buffer buffer)
 	{
-		System.out.println("Initialized Incrementor with " + myNum);
-		this.myNum = myNum;
-		this.inBuffer = inBuffer;
-	}
-
-	/**
-	 * @see java.lang.Thread#run()
-	 */
-	@Override
-	public void run()
-	{
-
-		System.out.println("Running Incrementor with " + myNum);
-		ValueHolder valueHolderLast;
-		try {
-			
-			valueHolderLast = inBuffer.read(0);
-			int last = valueHolderLast.getCurrentValue();
-			for (int i = 1; i < Starter.RANDOM_NUMBERS; i++)
-			{
-				ValueHolder valueHolderNext = inBuffer.read(i);
-				int next = valueHolderNext.getCurrentValue();
-				if (next != last + 1)
-				{
-					System.out.println(next + " followed " + last);
-				}
-				last = next;
-			}
-			
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		boolean allCorrectValues = true;
+		
+		int i = 0;
+		while( (i < Starter.RANDOM_NUMBERS) && allCorrectValues )
+		{
+			allCorrectValues = (buffer.read(i).getCurrentValue() == 3);
+			i++;
 		}
-	}
+		
+		if(!allCorrectValues)
+		{
+			System.out.println("Data error : Expected 3 but was -> " + buffer.read(i).getCurrentValue());
+		}
 
+		return allCorrectValues;
+	}
 }

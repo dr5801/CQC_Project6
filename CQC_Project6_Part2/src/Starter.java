@@ -78,10 +78,23 @@ public class Starter
 			threads[i].join();
 		}
 
-//		ConstantChecker checker = new ConstantChecker(buffer, RANDOM_NUMBERS
-//				* (behaviors.length ) + 1);
-//		checker.check();
+		/* checks the final results */
+		checkFinalResults(buffers[buffers.length-1]);
+	}
 
+	/**
+	 * checks the final results
+	 * @param finalResultsBuffer
+	 */
+	private void checkFinalResults(Buffer finalResultsBuffer) 
+	{
+		System.out.println("Checking final results ...");
+		ModifierChecker checker = new ModifierChecker();
+		
+		if(checker.checkFinalResults(finalResultsBuffer))
+		{
+			System.out.println("No error, all results are 3");
+		}
 	}
 
 	/**
