@@ -54,14 +54,13 @@ public class Starter
 		}
 
 		RandomNumberGenerator rNG = new RandomNumberGenerator(buffers[0], semaphores[0]);
-		FinalResultChecker checker = new FinalResultChecker(buffers[TOTAL_BUFFERS-1], semaphores[TOTAL_BUFFERS-1], semaphores[0]);
+		FinalResultChecker checker = new FinalResultChecker(buffers[buffers.length-1], semaphores[semaphores.length-1], semaphores[0]);
 		checker.start();
 		rNG.start();
 
 		for (int i = 0; i < behaviors.length; i++)
 		{
 			Class<?> behavior = Class.forName(behaviors[i]);
-			
 
 			threads[i] = new Modifier(i, buffers[i], buffers[i+1], (MathBehavior) behavior.getConstructor().newInstance(), semaphores[i], semaphores[i+1]);
 			
