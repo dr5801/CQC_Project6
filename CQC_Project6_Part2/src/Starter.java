@@ -54,6 +54,8 @@ public class Starter
 		}
 
 		RandomNumberGenerator rNG = new RandomNumberGenerator(buffers[0], semaphores[0]);
+		FinalResultChecker checker = new FinalResultChecker(buffers[TOTAL_BUFFERS-1], semaphores[TOTAL_BUFFERS-1], semaphores[0]);
+		checker.start();
 		rNG.start();
 
 		for (int i = 0; i < behaviors.length; i++)
@@ -61,40 +63,16 @@ public class Starter
 			Class<?> behavior = Class.forName(behaviors[i]);
 			
 
-			if(i != behaviors.length-1)
-			{
-				threads[i] = new Modifier(i, buffers[i], buffers[i+1], (MathBehavior) behavior.getConstructor().newInstance(), semaphores[i], semaphores[i+1]);
-			}
-			else
-			{
-				threads[i] = new Modifier(i, buffers[i], buffers[i+1], (MathBehavior) behavior.getConstructor().newInstance(), semaphores[i], semaphores[0]);
-			}
+			threads[i] = new Modifier(i, buffers[i], buffers[i+1], (MathBehavior) behavior.getConstructor().newInstance(), semaphores[i], semaphores[i+1]);
 			
 			threads[i].start();
 		}
 		
 		rNG.join();
+		checker.join();
 		for (int i = 0; i < threads.length; i++)
 		{
 			threads[i].join();
-		}
-
-		/* checks the final results */
-//		checkFinalResults(buffers[buffers.length-1]);
-	}
-
-	/**
-	 * checks the final results
-	 * @param finalResultsBuffer
-	 */
-	private void checkFinalResults(Buffer finalResultsBuffer) 
-	{
-		System.out.println("\nChecking all 10,000 results ...");
-		ModifierChecker checker = new ModifierChecker();
-		
-		if(checker.checkFinalResults(finalResultsBuffer))
-		{
-			System.out.println("No error, all results are 3");
 		}
 	}
 
