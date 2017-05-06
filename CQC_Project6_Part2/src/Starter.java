@@ -70,7 +70,6 @@ public class Starter
 				threads[i] = new Modifier(i, buffers[i], buffers[i+1], (MathBehavior) behavior.getConstructor().newInstance(), semaphores[i], semaphores[0]);
 			}
 			
-			semaphores[i].take();
 			threads[i].start();
 		}
 		
