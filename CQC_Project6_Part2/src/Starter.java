@@ -80,7 +80,7 @@ public class Starter
 		}
 
 		/* checks the final results */
-		checkFinalResults(buffers[buffers.length-1]);
+//		checkFinalResults(buffers[buffers.length-1]);
 	}
 
 	/**
