@@ -45,6 +45,7 @@ public class RandomNumberGenerator extends Thread implements MathBehavior
 			ValueHolder valueHolder = new ValueHolder(0,0);
 			valueHolder = this.execute(valueHolder);
 			this.outBuffer.write(i, valueHolder);
+			
 		}
 		
 		this.sendingSemaphore.take();
